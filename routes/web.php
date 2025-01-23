@@ -4,9 +4,15 @@ use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\GoogleController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::controller(GoogleController::class)->group(function () {
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
 });
 
 Route::get('/dashboard', function () {
